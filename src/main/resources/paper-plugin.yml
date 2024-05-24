@@ -10,3 +10,13 @@ dependencies:
       # Load order is relative to the dependency. So here PlaceholderAPI loads before our plugin.
       load: BEFORE
       required: false
+commands:
+  reload:
+    description: Przeładuj konfigurację pluginu.
+    aliases: [mar]
+    permission: myautomessage.reload
+permissions:
+  myautomessage.reload:
+    description: Pozwala na przeładowanie konfiguracji pluginu.
+    default: op
+
