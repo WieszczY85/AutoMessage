@@ -28,7 +28,8 @@ public final class My_Automessage extends JavaPlugin {
         saveDefaultConfig();
         config = getConfig();
         messages = config.getStringList("auto-message.messages");
-        prefix = config.getString("auto-message.prefix"); // Dodajemy prefix
+        prefix = config.getString("auto-message.prefix");
+        getCommand("reload").setExecutor(new ReloadCommand());
         startAutoMessageTask();
 
     }
