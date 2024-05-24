@@ -11,27 +11,24 @@ import net.kyori.adventure.text.Component;
 import java.util.List;
 
 public final class My_Automessage extends JavaPlugin {
+    public static My_Automessage getPlugin() {
+        return plugin;
+    }
+    private static My_Automessage plugin;
     private BukkitRunnable autoMessageTask;
     private FileConfiguration config;
     private List<String> messages;
     private String prefix;
     private int messageIndex = 0;
 
-    private static My_Automessage plugin;
-
-    public static My_Automessage getPlugin() {
-        return plugin;
-    }
     @Override
     public void onEnable() {
-        plugin = this;
         saveDefaultConfig();
         config = getConfig();
         messages = config.getStringList("auto-message.messages");
         prefix = config.getString("auto-message.prefix");
-        getCommand("reload").setExecutor(new ReloadCommand());
         startAutoMessageTask();
-
+        getCommand("myautomessage").setExecutor(new ReloadCommand());
     }
 
     @Override
