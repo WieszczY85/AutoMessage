@@ -11,7 +11,7 @@ dependencies:
       load: BEFORE
       required: false
 commands:
-  reload:
+  myautomessage:
     description: Przeładuj konfigurację pluginu.
     aliases: [mar]
     permission: myautomessage.reload

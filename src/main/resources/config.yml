@@ -1,6 +1,6 @@
 auto-message:
   interval-in-ticks: 6000 # 5 minut (20 ticków = 1 sekunda)
-  prefix: "&7[&aAutoMessage&7] -> "
+  prefix: "&7[&aAutoMessage&7] → "
   messages:
     - "Gracz %player_name% ma teraz %player_level% poziomów!"
     - "Na serwerze jest obecnie %online_players% graczy!"
