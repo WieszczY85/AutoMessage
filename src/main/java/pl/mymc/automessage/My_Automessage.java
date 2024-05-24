@@ -2,6 +2,7 @@ package pl.mymc.automessage;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -37,17 +38,27 @@ public class My_Automessage extends JavaPlugin {
         autoMessageTask = new BukkitRunnable() {
             @Override
             public void run() {
+                String prefix = config.getString("prefix");
                 String message = messages.get(messageIndex);
-                if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
-                    message = PlaceholderAPI.setPlaceholders(null, message);
-                }
+                String fullMessage = prefix + message;
                 MiniMessage miniMessage = MiniMessage.miniMessage();
-                Component messageComponent = miniMessage.deserialize(message);
-                getServer().broadcast(messageComponent);
+                Component messageComponent = miniMessage.deserialize(fullMessage);
+
+                for (Player player : getServer().getOnlinePlayers()) {
+                    if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
+                        String personalizedMessage = PlaceholderAPI.setPlaceholders(player, fullMessage);
+                        Component personalizedComponent = miniMessage.deserialize(personalizedMessage);
+                        player.sendMessage(personalizedComponent);
+                    } else {
+                        player.sendMessage(messageComponent);
+                    }
+                }
+
                 messageIndex = (messageIndex + 1) % messages.size();
             }
         };
 
         autoMessageTask.runTaskTimer(this, 0L, interval);
     }
+
 }

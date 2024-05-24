@@ -4,3 +4,9 @@ main: pl.mymc.automessage.My_Automessage
 author: https://github.com/WieszczY85
 api-version: 1.20.6
 description: Plugin wyświetlający automatyczne wiadomości na czacie.
+dependencies:
+  server:
+    PlaceholderAPI:
+      # Load order is relative to the dependency. So here PlaceholderAPI loads before our plugin.
+      load: BEFORE
+      required: false
