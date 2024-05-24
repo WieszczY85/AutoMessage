@@ -12,11 +12,5 @@ dependencies:
       required: false
 commands:
   myautomessage:
-    description: Przeładuj konfigurację pluginu.
-    aliases: [mar]
-    permission: myautomessage.reload
-permissions:
-  myautomessage.reload:
-    description: Pozwala na przeładowanie konfiguracji pluginu.
-    default: op
+    description: Przeładowuje plik konfiguracyjny.
 

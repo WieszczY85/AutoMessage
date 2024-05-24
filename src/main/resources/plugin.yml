@@ -7,11 +7,5 @@ description: Plugin wyświetlający automatyczne wiadomości na czacie.
 softdepend: [PlaceholderAPI]
 commands:
   myautomessage:
-    description: Przeładuj konfigurację pluginu.
-    usage: /<command>
-    permission: myautomessage.reload
-permissions:
-  myautomessage.reload:
-    description: Pozwala na przeładowanie konfiguracji pluginu.
-    default: op
+    description: Przeładowuje plik konfiguracyjny.
 

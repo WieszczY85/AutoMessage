@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class ReloadCommand implements CommandExecutor {
-    private My_Automessage plugin;
+    private final My_Automessage plugin;
 
     public ReloadCommand(My_Automessage plugin) {
         this.plugin = plugin;
