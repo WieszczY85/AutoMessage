@@ -1,9 +1,12 @@
 package pl.mymc.automessage;
 
+import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.configuration.file.FileConfiguration;
-import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.Component;
 
 import java.util.List;
 
@@ -18,9 +21,6 @@ public class My_Automessage extends JavaPlugin {
         saveDefaultConfig();
         config = getConfig();
         messages = config.getStringList("auto-message.messages");
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
-            new MyPlaceholders(this).register();
-        }
         startAutoMessageTask();
     }
 
@@ -38,12 +38,16 @@ public class My_Automessage extends JavaPlugin {
             @Override
             public void run() {
                 String message = messages.get(messageIndex);
-                getServer().broadcastMessage(message);
+                if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
+                    message = PlaceholderAPI.setPlaceholders(null, message);
+                }
+                MiniMessage miniMessage = MiniMessage.miniMessage();
+                Component messageComponent = miniMessage.deserialize(message);
+                getServer().broadcast(messageComponent);
                 messageIndex = (messageIndex + 1) % messages.size();
             }
         };
 
-        // Uruchomienie zadania zgodnie z interwałem określonym w konfiguracji
         autoMessageTask.runTaskTimer(this, 0L, interval);
     }
 }

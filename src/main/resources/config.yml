@@ -1,0 +1,7 @@
+auto-message:
+  interval-in-ticks: 6000 # 5 minut (20 ticków = 1 sekunda)
+  messages:
+    - "Gracz %player_name% ma teraz %player_level% poziomów!"
+    - "Na serwerze jest obecnie %online_players% graczy!"
+    - "Twój balans to %vault_eco_balance%!"
+    - "<red>Uważaj na Creepery!</red>"
