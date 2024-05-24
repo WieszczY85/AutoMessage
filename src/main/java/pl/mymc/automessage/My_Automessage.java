@@ -37,7 +37,7 @@ public class My_Automessage extends JavaPlugin {
     }
     @Override
     public boolean onCommand(@NotNull CommandSender sender, Command command, @NotNull String label, String[] args) {
-        if (command.getName().equalsIgnoreCase("reload")) {
+        if (command.getName().equalsIgnoreCase("myautomessage reload")) {
             if (sender.hasPermission("myautomessage.reload")) {
                 reloadPluginConfig();
                 sender.sendMessage(NamedTextColor.GREEN + "Konfiguracja została przeładowana.");
@@ -60,17 +60,18 @@ public class My_Automessage extends JavaPlugin {
             public void run() {
                 String prefix = config.getString("prefix");
                 String message = messages.get(messageIndex);
-                String fullMessage = prefix + message;
+
                 if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
                     if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
 
-                        fullMessage = PlaceholderAPI.setPlaceholders(null, fullMessage);
+                        message = PlaceholderAPI.setPlaceholders(null, message);
                     } else {
                         getLogger().warning("Nie znalazłem PlaceholderAPI na serwerze.");
                     }
                 } else {
                     getLogger().warning("Nie znalazłem  włączonego PlaceholderAPI na serwerze.");
                 }
+                String fullMessage = prefix + message;
                 MiniMessage miniMessage = MiniMessage.miniMessage();
                 Component messageComponent = miniMessage.deserialize(fullMessage);
                 getServer().broadcast(messageComponent);
