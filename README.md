@@ -4,6 +4,8 @@
 Prosty plugin na Auto-Message napisany i przetestowany na wersji Paper 1.20.6
 
 ## :sparkles: Głowne cechy:
+- 📄 Obsługa znaków zastępczych **PlaceholderAPI**
+- 🌈 Obsługa formatowania **MiniMessage**
 - :keyboard: Podstawowe komendy:
   `/mam help`
   `/mam version`
@@ -12,8 +14,6 @@ Prosty plugin na Auto-Message napisany i przetestowany na wersji Paper 1.20.6
   `myautomessage.help`
   `myautomessage.version`
   `myautomessage.reload`
-- 📄 Obsługa znaków zastępczych **PlaceholderAPI**
-- 🌈 Obsługa formatowania **MiniMessage**
 
 ## :hammer_and_wrench: Podstawowa konfiguracja:
 ```YAML
