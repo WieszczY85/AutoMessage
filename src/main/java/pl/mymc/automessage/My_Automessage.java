@@ -58,14 +58,18 @@ public class My_Automessage extends JavaPlugin implements PluginBootstrap {
 
     @Override
     public void reloadConfig() {
-        super.reloadConfig();
-        updateMessages();
+        try {
+            super.reloadConfig();
+            updateMessages();
+        } catch (Exception e) {
+            getLogger().severe("Wystąpił błąd podczas przełądowania konfiguracji: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public void updateMessages() {
         messages = getConfig().getStringList("auto-message.messages");
         prefix = getConfig().getString("auto-message.prefix");
-        restartAutoMessageTask();
     }
     public void restartAutoMessageTask() {
         if (autoMessageTask != null) {
