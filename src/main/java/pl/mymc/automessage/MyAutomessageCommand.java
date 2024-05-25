@@ -32,7 +32,6 @@ public class MyAutomessageCommand implements BasicCommand {
             } else if (args[0].equalsIgnoreCase("reload")) {
                 if (stack.getSender().hasPermission("myautomessage.reload")) {
                     plugin.reloadConfig();
-                    plugin.updateMessages();
                     plugin.restartAutoMessageTask();
                     stack.getSender().sendRichMessage("<green>Plik konfiguracyjny został przeładowany.</green>");
                 } else {
