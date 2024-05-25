@@ -1,42 +1,22 @@
+// MyAutomessageCommand.java
 package pl.mymc.automessage;
 
-import com.mojang.brigadier.Command;
-import com.mojang.brigadier.context.CommandContext;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginDescriptionFile;
+import io.papermc.paper.command.brigadier.BasicCommand;
+import io.papermc.paper.command.brigadier.CommandSourceStack;
+import org.jetbrains.annotations.NotNull;
 
-public class MyAutomessageCommand {
-    public static class HelpCommand implements Command<CommandSender> {
-        @Override
-        public int run(CommandContext<CommandSender> context) {
-            CommandSender sender = context.getSource();
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                player.sendMessage("To jest komenda pomocy. Dostępne komendy w pluginie to: xxxx, xxxx");
+public class MyAutomessageCommand implements BasicCommand {
+
+    @Override
+    public void execute(@NotNull CommandSourceStack stack, @NotNull String[] args) {
+        if (args.length > 0) {
+            if (args[0].equalsIgnoreCase("help")) {
+                stack.getSender().sendRichMessage("Dostępne komendy dla myautomessage: help, version");
+            } else if (args[0].equalsIgnoreCase("version")) {
+                stack.getSender().sendRichMessage("My_Automessage, Autor: WieszczY, Wersja: 1.0.0");
             }
-            return 1;
-        }
-    }
-
-    public static class VersionCommand implements Command<CommandSender> {
-        private final My_Automessage plugin;
-
-        public VersionCommand(My_Automessage plugin) {
-            this.plugin = plugin;
-        }
-
-        @Override
-        public int run(CommandContext<CommandSender> context) {
-            CommandSender sender = context.getSource();
-            if (sender instanceof Player) {
-                Player player = (Player) sender;
-                PluginDescriptionFile pdf = plugin.getDescription();
-                player.sendMessage("Nazwa pluginu: " + pdf.getName());
-                player.sendMessage("Autor: " + pdf.getAuthors().get(0));
-                player.sendMessage("Wersja: " + pdf.getVersion());
-            }
-            return 1;
+        } else {
+            stack.getSender().sendRichMessage("Testowa wiadomość z komendy");
         }
     }
 }
