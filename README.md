@@ -12,7 +12,7 @@ Prosty plugin na Auto-Message napisany i przetestowany na wersji Paper 1.20.6
   `myautomessage.help`
   `myautomessage.version`
   `myautomessage.reload`
-- 📄 Obsługa PlaceholderAPI
+- 📄 Obsługa **PlaceholderAPI**
 - 🌈 Obsługa formatowania **MiniMessage**
 
 ## :hammer_and_wrench: Podstawowa konfiguracja:
