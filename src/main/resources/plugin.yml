@@ -2,7 +2,7 @@ name: My-Automessage
 version: '${project.version}'
 main: pl.mymc.automessage.My_Automessage
 author: WieszczY
-website: https://github.com/WieszczY85
+website: https://github.com/WieszczY85/My-AutoMessage
 api-version: 1.20.6
 description: Plugin wyświetlający automatyczne wiadomości na czacie.
 softdepend: [PlaceholderAPI]
@@ -12,4 +12,4 @@ commands:
     usage: |
       /<command> help - Wyświetla pomoc dla pluginu
       /<command> version - Wyświetla informacje o wersji pluginu
-
+      /<command> reload - Przeładowuje plik konfiguracyjny
