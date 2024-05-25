@@ -10,11 +10,7 @@ import net.kyori.adventure.text.Component;
 
 import java.util.List;
 
-public final class My_Automessage extends JavaPlugin {
-    public static My_Automessage getPlugin() {
-        return plugin;
-    }
-    private static My_Automessage plugin;
+public class My_Automessage extends JavaPlugin {
     private BukkitRunnable autoMessageTask;
     private FileConfiguration config;
     private List<String> messages;
@@ -23,12 +19,20 @@ public final class My_Automessage extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        saveDefaultConfig();
-        config = getConfig();
-        messages = config.getStringList("auto-message.messages");
-        prefix = config.getString("auto-message.prefix");
-        startAutoMessageTask();
-        getCommand("myautomessage").setExecutor(new ReloadCommand());
+        try {
+            saveDefaultConfig();
+            config = getConfig();
+            messages = config.getStringList("auto-message.messages");
+            prefix = config.getString("auto-message.prefix");
+            // Zarejestruj obiekty executorów komend
+            this.getCommand("myautomessage").setExecutor(new MyAutomessageCommand(this));
+
+            startAutoMessageTask();
+        } catch (Exception e) {
+            getLogger().severe("Wystąpił błąd podczas włączania pluginu: " + e.getMessage());
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -39,22 +43,32 @@ public final class My_Automessage extends JavaPlugin {
     }
 
     private void startAutoMessageTask() {
-        long interval = config.getLong("auto-message.interval-in-ticks");
+        try {
+            long interval = config.getLong("auto-message.interval-in-ticks");
 
-        autoMessageTask = new BukkitRunnable() {
-            @Override
-            public void run() {
-                String message = prefix + messages.get(messageIndex);
-                if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
-                    message = PlaceholderAPI.setPlaceholders(null, message);
+            autoMessageTask = new BukkitRunnable() {
+                @Override
+                public void run() {
+                    try {
+                        String message = prefix + messages.get(messageIndex);
+                        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
+                            message = PlaceholderAPI.setPlaceholders(null, message);
+                        }
+                        MiniMessage miniMessage = MiniMessage.miniMessage();
+                        Component messageComponent = miniMessage.deserialize(message);
+                        getServer().broadcast(messageComponent);
+                        messageIndex = (messageIndex + 1) % messages.size();
+                    } catch (Exception e) {
+                        getLogger().severe("Wystąpił błąd podczas wysyłania wiadomości: " + e.getMessage());
+                        e.printStackTrace();
+                    }
                 }
-                MiniMessage miniMessage = MiniMessage.miniMessage();
-                Component messageComponent = miniMessage.deserialize(message);
-                getServer().broadcast(messageComponent);
-                messageIndex = (messageIndex + 1) % messages.size();
-            }
-        };
+            };
 
-        autoMessageTask.runTaskTimer(this, 0L, interval);
+            autoMessageTask.runTaskTimer(this, 0L, interval);
+        } catch (Exception e) {
+            getLogger().severe("Wystąpił błąd podczas uruchamiania zadania: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
