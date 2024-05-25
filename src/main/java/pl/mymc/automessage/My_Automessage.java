@@ -34,7 +34,8 @@ public class My_Automessage extends JavaPlugin implements PluginBootstrap {
             LifecycleEventManager<Plugin> manager = this.getLifecycleManager();
             manager.registerEventHandler(LifecycleEvents.COMMANDS, event -> {
                 final Commands commands = event.registrar();
-                commands.register("myautomessage", "Komenda pluginu My-AutoMessage. Wpisz /mam help aby sprawdzic dostępne komendy", new MyAutomessageCommand(this), List.of("mam"));
+                commands.register("myautomessage", "Komenda pluginu My-AutoMessage. Wpisz /mam help aby sprawdzic dostępne komendy", new MyAutomessageCommand(this));
+                commands.register("mam", "Komenda pluginu My-AutoMessage. Wpisz /mam help aby sprawdzic dostępne komendy", new MyAutomessageCommand(this));
             });
             startAutoMessageTask();
         } catch (Exception e) {
