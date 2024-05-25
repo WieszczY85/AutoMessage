@@ -19,13 +19,13 @@ public class MyAutomessageCommand implements BasicCommand {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("help")) {
                 if (stack.getSender().hasPermission("myautomessage.help")) {
-                    stack.getSender().sendRichMessage("<green>Dostępne komendy dla myautomessage:\n# help\n# version");
+                    stack.getSender().sendRichMessage("<gray>#############################\n#\n#  <gold>Dostępne komendy dla myautomessage:\n<gray>#  <gold>mam help <gray>- <white>Wyświetla ten monit.\n<gray>#  <gold>/mam version <gray>- <white>Pokazuje pełną nazwe, autora i wersje pluginu. \n<gray>#  <gold>/mam reload <gray>- <white>Przeładowuje plik konfiguracyjny\n\n<gray>#\n#############################");
                 } else {
                     stack.getSender().sendMessage("Nie masz uprawnień do tej komendy.");
                 }
             } else if (args[0].equalsIgnoreCase("version")) {
-                if (stack.getSender().hasPermission("myautomessage.version")) {
-                    stack.getSender().sendRichMessage("<gray>#############################\n#\n# <gold>→ <bold>" + pdf.getName() + "</bold> ←\n<gray># <gold>Autor: <bold>" + pdf.getAuthors() + "</bold>\n<gray># <gold>Wersja: <bold>" + pdf.getVersion() + "</bold><gray>\n#\n#############################");
+                if (stack.getSender().hasPermission("myautomessage.version")) { //	getWebsite()
+                    stack.getSender().sendRichMessage("<gray>#############################\n#\n#   <gold>→ <bold>" + pdf.getName() + "</bold> ←\n<gray>#   <gold>Autor: <bold>" + pdf.getAuthors() + "</bold>\n<gray>#   <gold>WWW: <bold>" + pdf.getWebsite() + "</bold>\n<gray>#   <gold>Wersja: <bold>" + pdf.getVersion() + "</bold><gray>\n#\n#############################");
                 } else {
                     stack.getSender().sendRichMessage("Nie masz uprawnień do tej komendy.");
                 }
