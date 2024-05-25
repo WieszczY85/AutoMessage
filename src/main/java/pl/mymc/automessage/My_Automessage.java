@@ -56,15 +56,23 @@ public class My_Automessage extends JavaPlugin implements PluginBootstrap {
         LifecycleEventManager<BootstrapContext> manager = context.getLifecycleManager();
     }
 
+    @Override
+    public void reloadConfig() {
+        super.reloadConfig();
+        updateMessages();
+    }
+
+    public void updateMessages() {
+        messages = getConfig().getStringList("auto-message.messages");
+        prefix = getConfig().getString("auto-message.prefix");
+        restartAutoMessageTask();
+    }
     public void restartAutoMessageTask() {
         if (autoMessageTask != null) {
             autoMessageTask.cancel();
         }
-        messages = config.getStringList("auto-message.messages");
-        prefix = config.getString("auto-message.prefix");
         startAutoMessageTask();
     }
-
     private void startAutoMessageTask() {
         try {
             long interval = config.getLong("auto-message.interval-in-ticks");
