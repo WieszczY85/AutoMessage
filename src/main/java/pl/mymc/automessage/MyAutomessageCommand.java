@@ -18,14 +18,12 @@ public class MyAutomessageCommand implements BasicCommand {
         PluginDescriptionFile pdf = plugin.getDescription();
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("help")) {
-                stack.getSender().sendRichMessage("Dostępne komendy dla myautomessage: help, version");
+                stack.getSender().sendRichMessage("<green>Dostępne komendy dla myautomessage:\n# help\n# version");
             } else if (args[0].equalsIgnoreCase("version")) {
-                stack.getSender().sendRichMessage("Nazwa pluginu: " + pdf.getName() + ", Autor: " + pdf.getAuthors() + ", Wersja: " + pdf.getVersion());
+                stack.getSender().sendRichMessage("<gold>######################\n# Nazwa pluginu: <bold>" + pdf.getName() + "</bold>\n# Autor: <bold>" + pdf.getAuthors() + "</bold>\n# Wersja: <bold>" + pdf.getVersion() + "</bold>\n######################");
             }
         } else {
-            stack.getSender().sendRichMessage("Testowa wiadomość z komendy");
+            stack.getSender().sendRichMessage("<blue>Wpisz /mam help aby sprawdzic dostępne komendy");
         }
     }
 }
-
-//Wpisz /mam help aby sprawdzic dostępne komendy
