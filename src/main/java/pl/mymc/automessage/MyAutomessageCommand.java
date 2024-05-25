@@ -18,15 +18,29 @@ public class MyAutomessageCommand implements BasicCommand {
         PluginDescriptionFile pdf = plugin.getDescription();
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase("help")) {
-                stack.getSender().sendRichMessage("<green>Dostępne komendy dla myautomessage:\n# help\n# version");
+                if (stack.getSender().hasPermission("myautomessage.help")) {
+                    stack.getSender().sendRichMessage("<green>Dostępne komendy dla myautomessage:\n# help\n# version");
+                } else {
+                    stack.getSender().sendMessage("Nie masz uprawnień do tej komendy.");
+                }
             } else if (args[0].equalsIgnoreCase("version")) {
-                stack.getSender().sendRichMessage("<gray>#############################\n#\n# <gold>→ <bold>" + pdf.getName() + "</bold> ←\n# Autor: <bold>" + pdf.getAuthors() + "</bold>\n# Wersja: <bold>" + pdf.getVersion() + "</bold>\n#\n#############################");
+                if (stack.getSender().hasPermission("myautomessage.version")) {
+                    stack.getSender().sendRichMessage("<gray>#############################\n#\n# <gold>→ <bold>" + pdf.getName() + "</bold> ←\n<gray># <gold>Autor: <bold>" + pdf.getAuthors() + "</bold>\n<gray># <gold>Wersja: <bold>" + pdf.getVersion() + "</bold><gray>\n#\n#############################");
+                } else {
+                    stack.getSender().sendRichMessage("Nie masz uprawnień do tej komendy.");
+                }
             } else if (args[0].equalsIgnoreCase("reload")) {
-                plugin.reloadConfig();
-                stack.getSender().sendRichMessage("<green>Plik konfiguracyjny został przeładowany.</green>");
+                if (stack.getSender().hasPermission("myautomessage.reload")) {
+                    plugin.reloadConfig();
+                    plugin.updateMessages();
+                    plugin.restartAutoMessageTask();
+                    stack.getSender().sendRichMessage("<green>Plik konfiguracyjny został przeładowany.</green>");
+                } else {
+                    stack.getSender().sendRichMessage("Nie masz uprawnień do tej komendy.");
+                }
             }
         } else {
-            stack.getSender().sendRichMessage("<blue>Wpisz /mam help aby sprawdzic dostępne komendy");
+            stack.getSender().sendRichMessage("<blue>Komenda pluginu My-AutoMessage. <green>Wpisz /mam help aby sprawdzic dostępne komendy");
         }
     }
 }

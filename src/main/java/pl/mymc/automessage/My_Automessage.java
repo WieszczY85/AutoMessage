@@ -50,9 +50,22 @@ public class My_Automessage extends JavaPlugin implements PluginBootstrap {
             autoMessageTask.cancel();
         }
     }
+
     @Override
     public void bootstrap(BootstrapContext context) {
         LifecycleEventManager<BootstrapContext> manager = context.getLifecycleManager();
+    }
+
+    public void updateMessages() {
+        messages = config.getStringList("auto-message.messages");
+        prefix = config.getString("auto-message.prefix");
+    }
+
+    public void restartAutoMessageTask() {
+        if (autoMessageTask != null) {
+            autoMessageTask.cancel();
+        }
+        startAutoMessageTask();
     }
 
     private void startAutoMessageTask() {
