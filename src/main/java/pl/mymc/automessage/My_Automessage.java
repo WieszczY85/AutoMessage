@@ -1,5 +1,6 @@
 package pl.mymc.automessage;
 
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -7,7 +8,11 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.configuration.file.FileConfiguration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.Component;
-
+import com.mojang.brigadier.CommandDispatcher;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.tree.LiteralCommandNode;
+import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.java.JavaPlugin;
 import java.util.List;
 
 public class My_Automessage extends JavaPlugin {
@@ -16,6 +21,7 @@ public class My_Automessage extends JavaPlugin {
     private List<String> messages;
     private String prefix;
     private int messageIndex = 0;
+    private CommandDispatcher<CommandSender> commandDispatcher;
 
     @Override
     public void onEnable() {
@@ -24,8 +30,17 @@ public class My_Automessage extends JavaPlugin {
             config = getConfig();
             messages = config.getStringList("auto-message.messages");
             prefix = config.getString("auto-message.prefix");
-            // Zarejestruj obiekty executorów komend
-            this.getCommand("myautomessage").setExecutor(new MyAutomessageCommand(this));
+            commandDispatcher = new CommandDispatcher<>();
+
+            LiteralCommandNode<CommandSender> myautomessageNode = LiteralArgumentBuilder
+                    .<CommandSender>literal("myautomessage")
+                    .then(LiteralArgumentBuilder.<CommandSender>literal("help")
+                            .executes(new MyAutomessageCommand.HelpCommand()))
+                    .then(LiteralArgumentBuilder.<CommandSender>literal("version")
+                            .executes(new MyAutomessageCommand.VersionCommand(this)))
+                    .build();
+
+            commandDispatcher.getRoot().addChild(myautomessageNode);
 
             startAutoMessageTask();
         } catch (Exception e) {
