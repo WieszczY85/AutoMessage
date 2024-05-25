@@ -20,7 +20,10 @@ public class MyAutomessageCommand implements BasicCommand {
             if (args[0].equalsIgnoreCase("help")) {
                 stack.getSender().sendRichMessage("<green>Dostępne komendy dla myautomessage:\n# help\n# version");
             } else if (args[0].equalsIgnoreCase("version")) {
-                stack.getSender().sendRichMessage("<gold>######################\n# Nazwa pluginu: <bold>" + pdf.getName() + "</bold>\n# Autor: <bold>" + pdf.getAuthors() + "</bold>\n# Wersja: <bold>" + pdf.getVersion() + "</bold>\n######################");
+                stack.getSender().sendRichMessage("<gray>#############################\n#\n# <gold>→ <bold>" + pdf.getName() + "</bold> ←\n# Autor: <bold>" + pdf.getAuthors() + "</bold>\n# Wersja: <bold>" + pdf.getVersion() + "</bold>\n#\n#############################");
+            } else if (args[0].equalsIgnoreCase("reload")) {
+                plugin.reloadConfig();
+                stack.getSender().sendRichMessage("<green>Plik konfiguracyjny został przeładowany.</green>");
             }
         } else {
             stack.getSender().sendRichMessage("<blue>Wpisz /mam help aby sprawdzic dostępne komendy");
