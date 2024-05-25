@@ -1,7 +1,7 @@
 # My-Automessage
 
 ## :information_source: Informacje:
-Prosty plugin na Automessage napisany i przetestowany na wersji Paper 1.20.6
+Prosty plugin na Auto-Message napisany i przetestowany na wersji Paper 1.20.6
 
 ## :sparkles: Głowne cechy:
 - :keyboard: Podstawowe komendy:
